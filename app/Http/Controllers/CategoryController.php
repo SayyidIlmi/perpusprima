@@ -28,6 +28,37 @@ class CategoryController extends Controller
        ['id' => 5, 'nama' => 'Romansa'],
 
    ];
+public function index()
+
+   {
+
+       return response()->json($this->kategoriDummy);
+
+   }
+
+
+
+   // Detail kategori
+
+   public function show($id)
+
+   {
+
+       $kategori = collect($this->kategoriDummy)->firstWhere('id', $id);
+
+
+
+       if (!$kategori) {
+
+           return response()->json(['message' => 'Kategori tidak ditemukan'], 404);
+
+       }
+
+
+
+       return response()->json($kategori);
+
+   }
 
  public function store(Request $request)
 
