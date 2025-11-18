@@ -16,5 +16,8 @@ Route::delete('book/{id}', [BookController::class, 'destroy']);
 Route::get('users', [UserController::class, 'index']);
 Route::get('users/{id}', [UserController::class, 'show']);
 Route::post('users', [UserController::class, 'store']);
+Route::post('category', [CategoryController::class, 'store']);
+Route::put('category/{id}', [CategoryController::class, 'update']);
+Route::delete('category/{id}', [CategoryController::class, 'destroy']);
 
 });
