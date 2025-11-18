@@ -119,4 +119,74 @@ class UserController extends Controller
 
 
 
+   public function update(Request $request, $id)
+
+   {
+
+       $userIndex = collect($this->userDummy)->search(fn($u) => $u['id'] == $id);
+
+
+
+       if ($userIndex === false) {
+
+           return response()->json(['message' => 'User tidak ditemukan'], 404);
+
+       }
+
+
+
+       $validated = $request->validate([
+
+           'nama' => 'required|string|max:255',
+
+           'email' => 'required|email',
+
+       ]);
+
+
+
+       $this->userDummy[$userIndex] = [
+
+           'id' => $id,
+
+           'nama' => $validated['nama'],
+
+           'email' => $validated['email'],
+
+       ];
+
+
+
+       return response()->json($this->userDummy[$userIndex]);
+
+   }
+
+
+
+   // Menghapus user
+
+   public function destroy($id)
+
+   {
+
+       $userIndex = collect($this->userDummy)->search(fn($u) => $u['id'] == $id);
+
+
+
+       if ($userIndex === false) {
+
+           return response()->json(['message' => 'User tidak ditemukan'], 404);
+
+       }
+
+
+
+       array_splice($this->userDummy, $userIndex, 1);
+
+
+
+       return response()->json(['message' => 'User berhasil dihapus']);
+
+   }
+
 }
